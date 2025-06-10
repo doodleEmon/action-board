@@ -128,11 +128,11 @@ function Dashboard() {
                         </DropdownMenu>
                     </div>
                     <Tabs defaultValue="overview">
-                        <TabsList className="rounded-md bg-none">
-                            <TabsTrigger value="overview" className="data-[state=active]:font-semibold data-[state=active]:text-white">Overview</TabsTrigger>
-                            <TabsTrigger value="priority" className="data-[state=active]:font-semibold data-[state=active]:text-white">Priority</TabsTrigger>
-                            <TabsTrigger value="activity" className="data-[state=active]:font-semibold data-[state=active]:text-white">Activity</TabsTrigger>
-                            <TabsTrigger value="analysis" className="data-[state=active]:font-semibold data-[state=active]:text-white">Analysis</TabsTrigger>
+                        <TabsList className="rounded-md bg-none space-x-4">
+                            <TabsTrigger value="overview" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2">Overview</TabsTrigger>
+                            <TabsTrigger value="priority" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2">Priority</TabsTrigger>
+                            <TabsTrigger value="activity" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2">Activity</TabsTrigger>
+                            <TabsTrigger value="analysis" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2">Analysis</TabsTrigger>
                         </TabsList>
                     </Tabs>
                     <div className="flex items-center space-x-2">
