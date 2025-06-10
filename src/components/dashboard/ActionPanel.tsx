@@ -76,35 +76,42 @@ export function ActionPanel() {
     }
   }
 
-  const renderActionItem = (action: any, type: 'server' | 'client' | 'static') => {
-    const isCompleted = type === 'static' ? false : action.completed
-    const title = type === 'static' ? action.title.substring(0, 40) + '...' : action.title
-    const priority = type === 'server' ? action.priority : 'medium'
+const renderActionItem = (
+  action: Action | ServerAction | StaticAction, 
+  type: 'server' | 'client' | 'static'
+) => {
+  const isCompleted = type === 'static'
+    ? false
+    : 'completed' in action
+      ? action.completed
+      : false
+  const title = type === 'static' ? action.title.substring(0, 40) + '...' : action.title
+  const priority = type === 'server' ? (action as Action).priority : 'medium'
 
-    return (
-      <div key={action.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800/50 rounded-lg transition-colors">
-        {isCompleted ? (
-          <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-        ) : (
-          <Circle className="w-4 h-4 text-gray-400 flex-shrink-0" />
+  return (
+    <div key={action.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800/50 rounded-lg transition-colors">
+      {isCompleted ? (
+        <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+      ) : (
+        <Circle className="w-4 h-4 text-gray-400 flex-shrink-0" />
+      )}
+      <div className="flex-1 min-w-0">
+        <p className={`text-sm ${isCompleted ? 'line-through text-gray-500' : 'text-gray-200'}`}>
+          {title}
+        </p>
+        {type === 'static' && (
+          <p className="text-xs text-gray-500 mt-1">Post ID: {action.id} | User: {action.userId}</p>
         )}
-        <div className="flex-1 min-w-0">
-          <p className={`text-sm ${isCompleted ? 'line-through text-gray-500' : 'text-gray-200'}`}>
-            {title}
-          </p>
-          {type === 'static' && (
-            <p className="text-xs text-gray-500 mt-1">Post ID: {action.id} | User: {action.userId}</p>
-          )}
-        </div>
-        {type === 'server' && (
-          <Badge className={`text-xs ${getPriorityColor(priority)}`}>
-            {priority}
-          </Badge>
-        )}
-        <span className="text-xs text-gray-500">#{action.id}</span>
       </div>
-    )
-  }
+      {type === 'server' && (
+        <Badge className={`text-xs ${getPriorityColor(priority)}`}>
+          {priority}
+        </Badge>
+      )}
+      <span className="text-xs text-gray-500">#{action.id}</span>
+    </div>
+  )
+}
 
   return (
     <div className="h-full flex flex-col">
