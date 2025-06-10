@@ -6,8 +6,73 @@ import { ResizablePanel, ResizablePanelGroup, ResizableHandle } from "@/componen
 import ActionPanelSSR from "@/components/panels/ActionPanelSSR";
 import ActionPanelCSR from "@/components/panels/ActionPanelCSR";
 import ActionPanelISR from "@/components/panels/ActionPanelISR";
+import Link from "next/link";
 
-function ActionBoardPage() {
+// Overview content component (2x2 grid)
+function OverviewContent() {
+    return (
+        <ResizablePanelGroup direction="vertical" className="h-full">
+            {/* Top Row */}
+            <ResizablePanel defaultSize={50}>
+                <ResizablePanelGroup direction="horizontal" className="h-full">
+                    <ResizablePanel defaultSize={50} className="bg-black p-4">
+                        <h3 className="text-sm font-semibold mb-2">ActionNotes</h3>
+                    </ResizablePanel>
+                    <ResizableHandle withHandle />
+                    <ResizablePanel defaultSize={50} className="bg-black p-4">
+                        <h3 className="text-sm font-semibold mb-2">Knowledge Base</h3>
+                    </ResizablePanel>
+                </ResizablePanelGroup>
+            </ResizablePanel>
+
+            <ResizableHandle withHandle />
+
+            {/* Bottom Row */}
+            <ResizablePanel defaultSize={50}>
+                <ResizablePanelGroup direction="horizontal" className="h-full">
+                    <ResizablePanel defaultSize={50} className="bg-black p-4">
+                        <h3 className="text-sm font-semibold mb-2">RolesAndMembers</h3>
+                    </ResizablePanel>
+                    <ResizableHandle withHandle />
+                    <ResizablePanel defaultSize={50} className="bg-black p-4">
+                        <h3 className="text-sm font-semibold mb-2">BoardGoals</h3>
+                    </ResizablePanel>
+                </ResizablePanelGroup>
+            </ResizablePanel>
+        </ResizablePanelGroup>
+    );
+}
+
+// Simple content component for other tabs
+type SimpleTabContentProps = {
+    tabName: string;
+};
+
+function SimpleTabContent({ tabName }: SimpleTabContentProps) {
+    return (
+        <div className="h-full bg-black p-4 flex items-center justify-center">
+            <h2 className="text-2xl font-semibold text-white">{tabName}</h2>
+        </div>
+    );
+}
+
+function ActionBoardPage({ tab = "overview" }) {
+    // Determine content based on tab prop
+    const renderMainContent = () => {
+        switch (tab) {
+            case 'overview':
+                return <OverviewContent />;
+            case 'priority':
+                return <SimpleTabContent tabName="Priority" />;
+            case 'activity':
+                return <SimpleTabContent tabName="Activity" />;
+            case 'analysis':
+                return <SimpleTabContent tabName="Analysis" />;
+            default:
+                return <OverviewContent />;
+        }
+    };
+
     return (
         <div className="flex h-screen bg-black text-white"> {/* Overall container */}
             {/* Action Panel (Left Sidebar) */}
@@ -47,14 +112,44 @@ function ActionBoardPage() {
                         </DropdownMenu>
                     </div>
                     {/* header tab list */}
-                    <Tabs defaultValue="overview">
-                        <TabsList className="rounded-md bg-none space-x-4">
-                            <TabsTrigger value="overview" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2 cursor-pointer">Overview</TabsTrigger>
-                            <TabsTrigger value="priority" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2 cursor-pointer">Priority</TabsTrigger>
-                            <TabsTrigger value="activity" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2 cursor-pointer">Activity</TabsTrigger>
-                            <TabsTrigger value="analysis" className="data-[state=active]:font-semibold data-[state=active]:text-white px-2 cursor-pointer">Analysis</TabsTrigger>
-                        </TabsList>
-                    </Tabs>
+                    <div className="flex rounded-md bg-none space-x-4">
+                        <Link href="/overview">
+                            <button className={`px-2 py-1 cursor-pointer transition-colors ${
+                                tab === 'overview' 
+                                    ? 'font-semibold text-white' 
+                                    : 'text-gray-400 hover:text-gray-300'
+                            }`}>
+                                Overview
+                            </button>
+                        </Link>
+                        <Link href="/priority">
+                            <button className={`px-2 py-1 cursor-pointer transition-colors ${
+                                tab === 'priority' 
+                                    ? 'font-semibold text-white' 
+                                    : 'text-gray-400 hover:text-gray-300'
+                            }`}>
+                                Priority
+                            </button>
+                        </Link>
+                        <Link href="/activity">
+                            <button className={`px-2 py-1 cursor-pointer transition-colors ${
+                                tab === 'activity' 
+                                    ? 'font-semibold text-white' 
+                                    : 'text-gray-400 hover:text-gray-300'
+                            }`}>
+                                Activity
+                            </button>
+                        </Link>
+                        <Link href="/analysis">
+                            <button className={`px-2 py-1 cursor-pointer transition-colors ${
+                                tab === 'analysis' 
+                                    ? 'font-semibold text-white' 
+                                    : 'text-gray-400 hover:text-gray-300'
+                            }`}>
+                                Analysis
+                            </button>
+                        </Link>
+                    </div>
                     <div className="flex items-center space-x-2">
                         {/* Top right icons */}
                         <Button variant="ghost" size="icon" className="rounded-full w-8 h-8 bg-gray-700 hover:bg-gray-600"></Button>
@@ -92,37 +187,9 @@ function ActionBoardPage() {
 
                     <ResizableHandle withHandle />
 
-                    {/* Main 2x2 Grid (Now Resizable) */}
+                    {/* Main Content Area (Dynamic based on tab prop) */}
                     <ResizablePanel defaultSize={60}>
-                        <ResizablePanelGroup direction="vertical" className="h-full">
-                            {/* Top Row */}
-                            <ResizablePanel defaultSize={50}>
-                                <ResizablePanelGroup direction="horizontal" className="h-full">
-                                    <ResizablePanel defaultSize={50} className="bg-black p-4">
-                                        <h3 className="text-sm font-semibold mb-2">ActionNotes</h3>
-                                    </ResizablePanel>
-                                    <ResizableHandle withHandle />
-                                    <ResizablePanel defaultSize={50} className="bg-black p-4">
-                                        <h3 className="text-sm font-semibold mb-2">Knowledge Base</h3>
-                                    </ResizablePanel>
-                                </ResizablePanelGroup>
-                            </ResizablePanel>
-
-                            <ResizableHandle withHandle />
-
-                            {/* Bottom Row */}
-                            <ResizablePanel defaultSize={50}>
-                                <ResizablePanelGroup direction="horizontal" className="h-full">
-                                    <ResizablePanel defaultSize={50} className="bg-black p-4">
-                                        <h3 className="text-sm font-semibold mb-2">RolesAndMembers</h3>
-                                    </ResizablePanel>
-                                    <ResizableHandle withHandle />
-                                    <ResizablePanel defaultSize={50} className="bg-black p-4">
-                                        <h3 className="text-sm font-semibold mb-2">BoardGoals</h3>
-                                    </ResizablePanel>
-                                </ResizablePanelGroup>
-                            </ResizablePanel>
-                        </ResizablePanelGroup>
+                        {renderMainContent()}
                     </ResizablePanel>
 
                     <ResizableHandle withHandle />
@@ -138,3 +205,30 @@ function ActionBoardPage() {
 }
 
 export default ActionBoardPage;
+
+// Usage instructions:
+// Create these page files in your app directory:
+
+// app/overview/page.js
+// import ActionBoardPage from './ActionBoardPage';
+// export default function OverviewPage() {
+//     return <ActionBoardPage tab="overview" />;
+// }
+
+// app/priority/page.js  
+// import ActionBoardPage from './ActionBoardPage';
+// export default function PriorityPage() {
+//     return <ActionBoardPage tab="priority" />;
+// }
+
+// app/activity/page.js
+// import ActionBoardPage from './ActionBoardPage';
+// export default function ActivityPage() {
+//     return <ActionBoardPage tab="activity" />;
+// }
+
+// app/analysis/page.js
+// import ActionBoardPage from './ActionBoardPage';
+// export default function AnalysisPage() {
+//     return <ActionBoardPage tab="analysis" />;
+// }
