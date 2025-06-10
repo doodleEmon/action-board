@@ -84,6 +84,9 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { ResizablePanel, ResizablePanelGroup, ResizableHandle } from "@/components/ui/resizable";
+import ActionPanelSSR from "@/components/panels/ActionPanelSSR";
+import ActionPanelCSR from "@/components/panels/ActionPanelCSR";
+import ActionPanelISR from "@/components/panels/ActionPanelISR";
 
 function Dashboard() {
     return (
@@ -143,6 +146,25 @@ function Dashboard() {
                     {/* Left Panel (Optional) */}
                     <ResizablePanel defaultSize={20}>
                         <div className="p-4">Action Panel</div>
+                        <Tabs defaultValue="ssr" className="space-y-4 p-4">
+                            {/* Tab Triggers (Headers) */}
+                            <TabsList className="grid grid-cols-3 w-full">
+                                <TabsTrigger value="ssr" className="cursor-pointer">SSR</TabsTrigger>
+                                <TabsTrigger value="csr" className="cursor-pointer">CSR</TabsTrigger>
+                                <TabsTrigger value="isr" className="cursor-pointer">ISR</TabsTrigger>
+                            </TabsList>
+
+                            {/* Tab Contents (Dynamically Switched) */}
+                            <TabsContent value="ssr">
+                                <ActionPanelSSR />
+                            </TabsContent>
+                            <TabsContent value="csr">
+                                <ActionPanelCSR />
+                            </TabsContent>
+                            <TabsContent value="isr">
+                                <ActionPanelISR />
+                            </TabsContent>
+                        </Tabs>
                     </ResizablePanel>
 
                     <ResizableHandle withHandle />
