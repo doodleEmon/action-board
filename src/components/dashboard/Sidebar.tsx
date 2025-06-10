@@ -13,7 +13,6 @@ export function Sidebar() {
 
   return (
     <aside className="w-16 bg-black border-r border-gray-800 flex flex-col items-center py-4 space-y-3">
-      {/* User Avatars */}
       <div className="flex flex-col space-y-3">
         {sidebarItems.map((item) => (
           <Avatar
@@ -29,7 +28,6 @@ export function Sidebar() {
         ))}
       </div>
       
-      {/* Bottom Actions */}
       <div className="flex-1"></div>
       <div className="flex flex-col space-y-3">
         <Button variant="ghost" size="sm" className="w-10 h-10 p-0">

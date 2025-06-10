@@ -8,11 +8,9 @@ import ActionPanelCSR from "@/components/panels/ActionPanelCSR";
 import ActionPanelISR from "@/components/panels/ActionPanelISR";
 import Link from "next/link";
 
-// Overview content component (2x2 grid)
 function OverviewContent() {
     return (
         <ResizablePanelGroup direction="vertical" className="h-full">
-            {/* Top Row */}
             <ResizablePanel defaultSize={50}>
                 <ResizablePanelGroup direction="horizontal" className="h-full">
                     <ResizablePanel defaultSize={50} className="bg-black p-4">
@@ -27,7 +25,6 @@ function OverviewContent() {
 
             <ResizableHandle withHandle />
 
-            {/* Bottom Row */}
             <ResizablePanel defaultSize={50}>
                 <ResizablePanelGroup direction="horizontal" className="h-full">
                     <ResizablePanel defaultSize={50} className="bg-black p-4">
@@ -43,7 +40,6 @@ function OverviewContent() {
     );
 }
 
-// Simple content component for other tabs
 type SimpleTabContentProps = {
     tabName: string;
 };
@@ -57,7 +53,7 @@ function SimpleTabContent({ tabName }: SimpleTabContentProps) {
 }
 
 function ActionBoardPage({ tab = "overview" }) {
-    // Determine content based on tab prop
+
     const renderMainContent = () => {
         switch (tab) {
             case 'overview':
@@ -74,8 +70,7 @@ function ActionBoardPage({ tab = "overview" }) {
     };
 
     return (
-        <div className="flex h-screen bg-black text-white"> {/* Overall container */}
-            {/* Action Panel (Left Sidebar) */}
+        <div className="flex h-screen bg-black text-white">
             <div className="w-20 flex flex-col items-center py-4 space-y-4 border-r border-gray-800">
                 <Button variant="ghost" size="icon" className="rounded-full bg-gray-700 text-white hover:bg-gray-600">AB</Button>
                 <div className="flex-grow flex flex-col justify-center space-y-4">
@@ -86,16 +81,13 @@ function ActionBoardPage({ tab = "overview" }) {
                     <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-gray-700 hover:bg-gray-600"></Button>
                 </div>
                 <div className="flex flex-col space-y-4">
-                    {/* Bottom icons */}
                     <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-gray-700 hover:bg-gray-600"></Button>
                     <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-gray-700 hover:bg-gray-600"></Button>
                     <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-gray-700 hover:bg-gray-600"></Button>
                 </div>
             </div>
 
-            {/* Main Content Area */}
             <div className="flex-grow flex flex-col">
-                {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-800">
                     <div className="flex items-center space-x-4">
                         <DropdownMenu>
@@ -111,7 +103,6 @@ function ActionBoardPage({ tab = "overview" }) {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    {/* header tab list */}
                     <div className="flex rounded-md bg-none space-x-4">
                         <Link href="/overview">
                             <button className={`px-2 py-1 cursor-pointer transition-colors ${
@@ -151,7 +142,6 @@ function ActionBoardPage({ tab = "overview" }) {
                         </Link>
                     </div>
                     <div className="flex items-center space-x-2">
-                        {/* Top right icons */}
                         <Button variant="ghost" size="icon" className="rounded-full w-8 h-8 bg-gray-700 hover:bg-gray-600"></Button>
                         <Button variant="ghost" size="icon" className="rounded-full w-8 h-8 bg-gray-700 hover:bg-gray-600"></Button>
                     </div>
@@ -161,18 +151,15 @@ function ActionBoardPage({ tab = "overview" }) {
                     direction="horizontal"
                     className="flex-1 rounded-lg border"
                 >
-                    {/* Left Panel (Optional) */}
                     <ResizablePanel defaultSize={20}>
                         <div className="p-4">Action Panel</div>
                         <Tabs defaultValue="ssr" className="space-y-4 p-4">
-                            {/* Tab Triggers (Headers) */}
                             <TabsList className="grid grid-cols-3 w-full">
                                 <TabsTrigger value="ssr" className="cursor-pointer">SSR</TabsTrigger>
                                 <TabsTrigger value="csr" className="cursor-pointer">CSR</TabsTrigger>
                                 <TabsTrigger value="isr" className="cursor-pointer">ISR</TabsTrigger>
                             </TabsList>
 
-                            {/* Tab Contents (Dynamically Switched) */}
                             <TabsContent value="ssr">
                                 <ActionPanelSSR />
                             </TabsContent>
@@ -187,14 +174,12 @@ function ActionBoardPage({ tab = "overview" }) {
 
                     <ResizableHandle withHandle />
 
-                    {/* Main Content Area (Dynamic based on tab prop) */}
                     <ResizablePanel defaultSize={60}>
                         {renderMainContent()}
                     </ResizablePanel>
 
                     <ResizableHandle withHandle />
 
-                    {/* Right Panel (Optional) */}
                     <ResizablePanel defaultSize={20}>
                         <div className="p-4">Chat UI</div>
                     </ResizablePanel>
@@ -205,30 +190,3 @@ function ActionBoardPage({ tab = "overview" }) {
 }
 
 export default ActionBoardPage;
-
-// Usage instructions:
-// Create these page files in your app directory:
-
-// app/overview/page.js
-// import ActionBoardPage from './ActionBoardPage';
-// export default function OverviewPage() {
-//     return <ActionBoardPage tab="overview" />;
-// }
-
-// app/priority/page.js  
-// import ActionBoardPage from './ActionBoardPage';
-// export default function PriorityPage() {
-//     return <ActionBoardPage tab="priority" />;
-// }
-
-// app/activity/page.js
-// import ActionBoardPage from './ActionBoardPage';
-// export default function ActivityPage() {
-//     return <ActionBoardPage tab="activity" />;
-// }
-
-// app/analysis/page.js
-// import ActionBoardPage from './ActionBoardPage';
-// export default function AnalysisPage() {
-//     return <ActionBoardPage tab="analysis" />;
-// }

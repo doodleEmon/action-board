@@ -6,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Loader2, CheckCircle, Circle, AlertCircle } from 'lucide-react'
 
-// Types
 interface Action {
   id: number
   title: string
@@ -29,7 +28,6 @@ interface StaticAction {
   userId: number
 }
 
-// Client-side data fetching
 const fetchClientActions = async (): Promise<ServerAction[]> => {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=8')
   if (!response.ok) throw new Error('Failed to fetch')
@@ -42,7 +40,6 @@ const fetchStaticPosts = async (): Promise<StaticAction[]> => {
   return response.json()
 }
 
-// Mock server-side actions (this would come from getServerSideProps in real implementation)
 const serverActions: Action[] = [
   { id: 1, title: "Review Q4 financial reports", completed: false, priority: 'high', userId: 1 },
   { id: 2, title: "Schedule team meeting", completed: true, priority: 'medium', userId: 2 },
@@ -56,20 +53,18 @@ const serverActions: Action[] = [
 export function ActionPanel() {
   const [activeTab, setActiveTab] = useState('ssr')
 
-  // Client-side React Query
   const { data: clientActions, isLoading: clientLoading, error: clientError } = useQuery({
     queryKey: ['clientActions'],
     queryFn: fetchClientActions,
     enabled: activeTab === 'csr'
   })
 
-  // Static data query (simulating ISR)
   const { data: staticActions, isLoading: staticLoading } = useQuery({
     queryKey: ['staticActions'],
     queryFn: fetchStaticPosts,
     enabled: activeTab === 'isr',
-    staleTime: 60000, // Consider data fresh for 1 minute
-    gcTime: 300000, // Keep in cache for 5 minutes
+    staleTime: 60000,
+    gcTime: 300000,
   })
 
   const getPriorityColor = (priority: string) => {
