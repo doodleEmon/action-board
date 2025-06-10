@@ -116,20 +116,23 @@ function Dashboard() {
                     <div className="flex items-center space-x-4">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" className="text-lg font-semibold">Munshi Group / Action-Board</Button>
+                                <Button variant="ghost" className="text-sm font-semibold">Munshi Group / Action-Board</Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                                <DropdownMenuItem>Option 2</DropdownMenuItem>
+                            <DropdownMenuContent className="w-64 justify-start">
+                                <DropdownMenuItem>Action Board</DropdownMenuItem>
+                                <DropdownMenuItem>Calender</DropdownMenuItem>
+                                <DropdownMenuItem>Action Analytics</DropdownMenuItem>
+                                <DropdownMenuItem>Knowledge Base</DropdownMenuItem>
+                                <DropdownMenuItem>Messenger</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                     <Tabs defaultValue="overview">
-                        <TabsList className="bg-gray-900 rounded-md">
-                            <TabsTrigger value="overview" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Overview</TabsTrigger>
-                            <TabsTrigger value="priority" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Priority</TabsTrigger>
-                            <TabsTrigger value="activity" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Activity</TabsTrigger>
-                            <TabsTrigger value="analysis" className="data-[state=active]:bg-gray-700 data-[state=active]:text-white">Analysis</TabsTrigger>
+                        <TabsList className="rounded-md bg-none">
+                            <TabsTrigger value="overview" className="data-[state=active]:font-semibold data-[state=active]:text-white">Overview</TabsTrigger>
+                            <TabsTrigger value="priority" className="data-[state=active]:font-semibold data-[state=active]:text-white">Priority</TabsTrigger>
+                            <TabsTrigger value="activity" className="data-[state=active]:font-semibold data-[state=active]:text-white">Activity</TabsTrigger>
+                            <TabsTrigger value="analysis" className="data-[state=active]:font-semibold data-[state=active]:text-white">Analysis</TabsTrigger>
                         </TabsList>
                     </Tabs>
                     <div className="flex items-center space-x-2">

@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -15,7 +14,7 @@ export function Header() {
               <span className="text-white font-bold text-sm">AB</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-white font-medium">Munshi Group / Action-Board</span>
+              <span className="text-white text-base">Munshi Group / Action-Board</span>
               <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
@@ -23,7 +22,7 @@ export function Header() {
           </div>
           
           {/* Team Icons */}
-          <div className="flex -space-x-2">
+          <div className="flex space-x-2">
             <Avatar className="w-8 h-8 border-2 border-pink-500">
               <AvatarFallback className="bg-pink-500 text-white text-xs">U1</AvatarFallback>
             </Avatar>
